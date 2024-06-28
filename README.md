@@ -9,8 +9,6 @@
 
   - Developed a SQL Database in C++ from scratch over 16 days.
   - Constructed all necessary objects and data structures used in a SQL DBMS.
-    
-  ![found_b_tree](https://github.com/czLad/cs8_finalProject_SQL_Database/assets/111596851/c7987c39-ffd6-431d-90ef-ff5e5d89a4ca)
 
 ## Features:
 
@@ -24,7 +22,8 @@
     - Error handling inspired by PostgreSQL
 
 - **Partly Implemented:**
-  - BPlus Tree Remove prepared for DELETE but lacking disk management for DELETE operations.
+  - B+ Tree Remove prepared for DELETE but lacking disk management for DELETE operations.
+      ![found_b_tree](https://github.com/czLad/cs8_finalProject_SQL_Database/assets/111596851/c7987c39-ffd6-431d-90ef-ff5e5d89a4ca)
 
 - **Bugs:**
   - No known bugs.
