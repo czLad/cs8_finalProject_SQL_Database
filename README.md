@@ -9,7 +9,7 @@
 
   - Developed a SQL Database in C++ from scratch over 16 days.
   - Constructed all necessary objects and data structures used in a SQL DBMS.
-  <img src="https://media.giphy.com/media/l3q2tyT6SwahcqRWM/giphy.gif" alt="BPlus Tree Insert" width="200"/>
+  ![Alt text](<![image](https://github.com/czLad/cs8_finalProject_SQL_Database/assets/111596851/0bf61386-5a0c-474b-b651-9e6b8bc33efa)>)
 
 ## Features:
 
