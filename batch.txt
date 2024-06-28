@@ -1,0 +1,44 @@
+make table employee fields last, first, dep, salary, year
+insert into employee values Blow, Joe, CS, 100000, 2018
+insert into employee values Blow, JoAnn, Physics, 200000, 2016
+insert into employee values Johnson, Jack, HR, 150000, 2014
+insert into employee values Johnson, "Jimmy", Chemistry, 140000, 2018
+make table student fields fname, lname, major, age, company
+insert into student values Flo, Yao, CS, 20, Google
+insert into student values Bo, Yang, CS, 28, Microsoft
+insert into student values "Sammuel L.", Jackson, CS, 40, Uber
+insert into student values "Flo", "Jackson", Math, 21, Google
+insert into student values "Greg", "Pearson", Physics, 20, Amazon
+select lname, fname, major from student where ((lname=Yang or major=CS) and age<23 )or lname=Jackson
+select lname fname, major from student where ((lname=Yang or major=CS) and age<23 )or lname=Jackson
+select lname, , major from student where ((lname=Yang or major=CS) and age<23 )or lname=Jackson
+select lname, fname, major  student where ((lname=Yang or major=CS) and age<23 )or lname=Jackson
+select lname, fname, major from  where ((lname=Yang or major=CS) and age<23 )or lname=Jackson
+select lname, fname, major from student where 
+select lname, fname, major from student where (lname=Yang or major=CS) and age<23 )or lname=Jackson
+select lname, fname, major from student where ((lname=Yang or major=CS and age<23 )or lname=Jackson
+select lname, fname, major from student where ((lname= or major=CS) and age<23 )or lname=Jackson
+select lname, fname, major from student where ((lname=Yang or major=CS) and age<23 )or lname=
+select lname, fname, major from student where ((=Yang or major>=CS) and age<23 )or lname=Jackson
+select lname, fname, major from student where ((lname=Yang or major=CS) and age<23 )or =Jackson
+select lname, fname, major from student where ((lname=Yang or major>=CS) and age<23 )or =
+select lname, fname, major from student where ((lname=Yang or major=CS) and age<23 )or lname=Jackson
+select lname, fname, major from student where ((lname=Yang  major=CS) and age<23 )or lname=Jackson
+select lname, fname, major from student where ((lname=Yang or ) and age<23 )or lname=Jackson
+select lname, fname, major from student where ((lname=Yang or major=CS) and age<23 )or 
+select lname, fname, major from student where ((lname=Yang or major=CS) and age<23 )or lname=Jackson
+select lname, fname, major from student where ((lname=Yang or major=>CS) and age<23 )or lname=Jackson
+select lname, major, age from student where ((lname=Yang and major=CS) and age + 5)  
+select * from student
+select fname, major from student where Fname=Flo
+select lname, major, age from student where ((lname="Yang" and major="CS") or age>23) or lastname="Jackson"
+select lname, fname, major from student where ((lname Yang or major>=CS) and age<23 )or lname=Jackson
+select lname, fname, major from student where ((lname=Yang or major>=CS) and age<23 )or
+select lname, fname, major from student where "CS"
+select lname, fname, major from student where ((lname=Yang or major and CS) and age<23 )or lname=Jackson
+select lname, fname, major from student where ((lname=Yang = major=CS) and age<23 )or lname=Jackson
+show tables
+drop table students
+drop table
+wizardry is awesome
+
