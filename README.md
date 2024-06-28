@@ -31,45 +31,20 @@
 
 - Data Structures and Algorithms were exceedingly interesting.
 
-## Output:
-
-<pre>
-<br/><br/><br/><br/>
-SQL in action
-</pre>
-
-
-<br/><br/>
+## Output: SQL in action
 
 # CREATE TABLE output:
-<pre>
-<br/><br/><br/><br/>
-</pre>
+![CREATE TABLE](<SQLcreatetable-ezgif.com-video-to-gif-converter (2).gif>)
 # INSERT INTO output:
-<pre>
-<br/><br/><br/><br/>
-</pre>
+![INSERT_INTO_TABLE](<SQLinsert-ezgif.com-video-to-gif-converter.gif>)
 # SELECT output:
-<pre>
-<br/><br/><br/><br/>
-</pre>
-# SELECT output:
-<pre>
-<br/><br/><br/><br/>
-</pre>
-# DROP output:
-<pre>
-<br/><br/><br/><br/>
-</pre>
+![SELECT](<SQLselect-ezgif.com-video-to-gif-converter.gif>)
+# DROP TABLE output:
+![DROP TABLE](<SQLdrop-ezgif.com-video-to-gif-converter.gif>)
 # SHOW TABLES output:
-<pre>
-<br/><br/><br/><br/>
-</pre>
+![SHOW TABLES](<SQLshowtables-ezgif.com-video-to-gif-converter.gif>)
 # BATCH output:
-<pre>
-<br/><br/><br/><br/>
-</pre>
+![BATCH](<SQLbatch-ezgif.com-video-to-gif-converter.gif>)
 # ERROR HANDLING output:
-<pre>
-<br/><br/><br/><br/>
-</pre>
+![ERROR_HANDLING_1](<SQLerrorhandling-ezgif.com-video-to-gif-converter.gif>)
+![ERROR_HANDLING_2](<SQLerrorhandling-ezgif.com-video-to-gif-converter (1).gif>)
