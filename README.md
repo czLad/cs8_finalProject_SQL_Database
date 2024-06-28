@@ -31,7 +31,7 @@
 
 - Data Structures and Algorithms were exceedingly interesting.
 
-## Output: SQL in action
+## Output:
 
 ### CREATE TABLE output:
 ![SQLcreatetable-ezgif com-video-to-gif-converter (2)](https://github.com/czLad/cs8_finalProject_SQL_Database/assets/111596851/cd935878-c230-4888-af4b-ce520cc2b79c)
