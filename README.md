@@ -9,7 +9,7 @@
 
   - Developed a SQL Database in C++ from scratch over 16 days.
   - Constructed all necessary objects and data structures used in a SQL DBMS.
-  ![Alt text](<![image](https://github.com/czLad/cs8_finalProject_SQL_Database/assets/111596851/0bf61386-5a0c-474b-b651-9e6b8bc33efa)>)
+  ![image](https://github.com/czLad/cs8_finalProject_SQL_Database/assets/111596851/0bf61386-5a0c-474b-b651-9e6b8bc33efa)
 
 ## Features:
 
