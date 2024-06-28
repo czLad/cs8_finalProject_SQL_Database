@@ -34,17 +34,18 @@
 ## Output: SQL in action
 
 ### CREATE TABLE output:
-![CREATE TABLE](<SQLcreatetable-ezgif.com-video-to-gif-converter (2).gif>)
+![SQLcreatetable-ezgif com-video-to-gif-converter (2)](https://github.com/czLad/cs8_finalProject_SQL_Database/assets/111596851/cd935878-c230-4888-af4b-ce520cc2b79c)
 ### INSERT INTO output:
-![INSERT_INTO_TABLE](<SQLinsert-ezgif.com-video-to-gif-converter.gif>)
+![SQLinsert-ezgif com-video-to-gif-converter](https://github.com/czLad/cs8_finalProject_SQL_Database/assets/111596851/718f1ca2-005c-41f4-9b59-de417c866c72)
 ### SELECT output:
-![SELECT](<SQLselect-ezgif.com-video-to-gif-converter.gif>)
+![SQLselect-ezgif com-video-to-gif-converter](https://github.com/czLad/cs8_finalProject_SQL_Database/assets/111596851/f81dd339-6065-4247-9fbe-239595fca53c)
 ### DROP TABLE output:
-![DROP TABLE](<SQLdrop-ezgif.com-video-to-gif-converter.gif>)
+![SQLdrop-ezgif com-video-to-gif-converter](https://github.com/czLad/cs8_finalProject_SQL_Database/assets/111596851/e491654f-8238-4336-bb98-511dbd8d8b26)
 ### SHOW TABLES output:
-![SHOW TABLES](<SQLshowtables-ezgif.com-video-to-gif-converter.gif>)
+![SQLshowtables-ezgif com-video-to-gif-converter](https://github.com/czLad/cs8_finalProject_SQL_Database/assets/111596851/2857f085-511f-4d0b-80b9-e7b78b291b2a)
 ### BATCH output:
-![BATCH](<SQLbatch-ezgif.com-video-to-gif-converter.gif>)
+![SQLbatch-ezgif com-video-to-gif-converter](https://github.com/czLad/cs8_finalProject_SQL_Database/assets/111596851/f71857c5-f311-46cd-987c-d3b6f35f85a1)
 ### ERROR HANDLING output:
-![ERROR_HANDLING_1](<SQLerrorhandling-ezgif.com-video-to-gif-converter.gif>)
-![ERROR_HANDLING_2](<SQLerrorhandling-ezgif.com-video-to-gif-converter (1).gif>)
+![SQLerrorhandling-ezgif com-video-to-gif-converter](https://github.com/czLad/cs8_finalProject_SQL_Database/assets/111596851/e0678400-f1bf-42c2-b7ff-0e1622dfca3a)
+![SQLerrorhandling-ezgif com-video-to-gif-converter (1)](https://github.com/czLad/cs8_finalProject_SQL_Database/assets/111596851/1085790e-5c4c-4263-a0a6-1c404913342d)
+
