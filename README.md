@@ -31,20 +31,20 @@
 
 - Data Structures and Algorithms were exceedingly interesting.
 
-## Output: SQL in action
+# Output: SQL in action
 
-# CREATE TABLE output:
+## CREATE TABLE output:
 ![CREATE TABLE](<SQLcreatetable-ezgif.com-video-to-gif-converter (2).gif>)
-# INSERT INTO output:
+## INSERT INTO output:
 ![INSERT_INTO_TABLE](<SQLinsert-ezgif.com-video-to-gif-converter.gif>)
-# SELECT output:
+## SELECT output:
 ![SELECT](<SQLselect-ezgif.com-video-to-gif-converter.gif>)
-# DROP TABLE output:
+## DROP TABLE output:
 ![DROP TABLE](<SQLdrop-ezgif.com-video-to-gif-converter.gif>)
-# SHOW TABLES output:
+## SHOW TABLES output:
 ![SHOW TABLES](<SQLshowtables-ezgif.com-video-to-gif-converter.gif>)
-# BATCH output:
+## BATCH output:
 ![BATCH](<SQLbatch-ezgif.com-video-to-gif-converter.gif>)
-# ERROR HANDLING output:
+## ERROR HANDLING output:
 ![ERROR_HANDLING_1](<SQLerrorhandling-ezgif.com-video-to-gif-converter.gif>)
 ![ERROR_HANDLING_2](<SQLerrorhandling-ezgif.com-video-to-gif-converter (1).gif>)
