@@ -23,11 +23,13 @@ public:
     ShuntingYard()
     {
         _stub = 0;
+        _sql_shunting_yard = false;
         _infix = Queue<Token*> ();
     }
     ShuntingYard(const Queue<Token*> &infix)
     {
         _stub = 0;
+        _sql_shunting_yard = false;
         _infix = infix;
     }
     friend ostream& operator << (ostream& outs, const ShuntingYard& print_me)
@@ -55,6 +57,8 @@ public:
         //Shunting Yard does clear its postfix after evaluation(very latest update)
         _postfix.clear();
         Stack<Token*> operator_stack;
+        int relational_count = 0;
+        int token_str_count = 0;
         if(debug)
         {
             cout<<"_infix in shunting yard\n";
@@ -77,7 +81,31 @@ public:
             case TOKEN_STR:
             if(debug)
                 cout << "case 1 SY\n";
+            token_str_count++;
+            if(token_str_count == 3)
+            {
+                if(_sql_shunting_yard)
+                {
+                    if(_sql_field_indicies->contains((*it)->get_val()))
+                    {
+                        if(static_cast<Operator*>(*(operator_stack.begin()))->get_operator_type() == RELATIONAL)
+                            error_code._code = EXPECT_LOGICAL;
+                        else
+                            error_code._code = EXPECT_A_RELATIONAL;
+                    }
+                    else
+                    {
+                        error_code._error_token = _postfix.back()->get_val();
+                        error_code._code = SYNTAX_ERR_AT_NEAR;
+                        error_code._modify_to_postgre = true;
+                    }
+                }
+                else
+                    error_code._code = INVALID_CONDITION;
+                throw error_code;
+            }
             _postfix.push(*it);
+
             break;
             case OPERATOR:
             if(debug)
@@ -101,8 +129,15 @@ public:
                 {
                     if(debug)
                         cout << "static_cast<Operator*>(*stack_operator)->get_precedence() >= static_cast<Operator*>(*it)->get_precedence())\n";
-
+                    if(static_cast<Operator*>(*(operator_stack.begin()))->get_operator_type() == RELATIONAL && 
+                    static_cast<Operator*>(*(operator_stack.begin()))->get_precedence() == static_cast<Operator*>(*it)->get_precedence())
+                    {
+                        error_code._error_token = (*it)->get_val();
+                        error_code._code = INVALID_USAGE_OF_OP;
+                        throw error_code;
+                    }
                     _postfix.push(operator_stack.pop());
+                    token_str_count = 0;
                 }
                 operator_stack.push(*it);
             }
@@ -110,14 +145,16 @@ public:
             case LPAREN:
             if(debug)
                 cout << "case 3 SY\n";
+            token_str_count = 0;
             operator_stack.push(*it);
             break;
             case RPAREN:
             if(debug)
                 cout << "case 4 SY\n";
+            token_str_count = 0;
             if(operator_stack.empty())
             {
-                error_code._code = 8;
+                error_code._code = MISSING_LEFT_PAREN;
                 throw error_code;
             }
             while((*operator_stack.begin())->get_type() != LPAREN)
@@ -127,11 +164,13 @@ public:
                 _postfix.push(operator_stack.pop());
                 if(operator_stack.empty())
                 {
-                    error_code._code = 8;
+                    error_code._code = MISSING_LEFT_PAREN;
                     throw error_code;
                 }
             }
             operator_stack.pop();
+            break;
+            default:
             break;
             }
         }
@@ -154,7 +193,7 @@ public:
         }
         if(_postfix.back()->get_type() == LPAREN)
         {
-            error_code._code = 7;
+            error_code._code = MISSING_RIGHT_PAREN;
             throw error_code;
         }
         return _postfix;
@@ -163,11 +202,18 @@ public:
     {
         _infix = infix;
     }
+    void set_sql_shuting_yard(bool sql_shunting_yard, const map_sl* sql_field_indicies){
+        _sql_shunting_yard = true;
+        _sql_field_indicies = sql_field_indicies;
+    }
+    bool get_sql_shunting_yard(){return _sql_shunting_yard;}
 
 private:
     int _stub;
     Queue<Token*> _infix;
     Queue<Token*> _postfix;
+    bool _sql_shunting_yard;
+    const map_sl* _sql_field_indicies;
 };
 
 

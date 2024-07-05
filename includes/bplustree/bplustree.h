@@ -491,10 +491,6 @@ public:
         const bool debug = true;
         if(is_leaf())
         {
-            // if(next)
-            //     outs <<setw(4 * level)<<"          "<<"^\n";
-            // else
-            //     outs <<setw(4 * level)<<"         "<<"|||\n";
             for(int i = data_count - 1; i > -1; i--)
                 outs <<setw(4 * level)<<""<<"["<<data[i]<<"]\n";
             if(debug)
@@ -682,7 +678,7 @@ private:
             if(subset[i]->is_leaf())
             {
                 insert_item(new_BPT->data, 0, new_BPT->data_count, mid_node_data);
-                //^the newly splilt data array ofTree will always have > 0 data_count
+                //^the newly splilt data array of Tree will always have > 0 data_count
                 new_BPT->next = subset[i]->next;
                 subset[i]->next = new_BPT;
             }

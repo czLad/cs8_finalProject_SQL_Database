@@ -31,6 +31,9 @@ Operator::Operator(string val) : Token()
 // }
 string Operator::get_val()
 {
+    const bool debug = true;
+    if(debug)
+        cout<<"Entered virtual get_val in operator\n";
     return _val;
 }
 void Operator::set_operator_type(const int& op_type)

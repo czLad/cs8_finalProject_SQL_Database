@@ -30,6 +30,7 @@ private:
     bool _error_state;
     void sql_init_write_to_file_txt(string filename);
     Table get_tablenames_table();
+    void modify_error_string_postgre(Error_Code& error, string& cmd_str);
 };
 
 

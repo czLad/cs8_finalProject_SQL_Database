@@ -8,6 +8,8 @@
 #include "../bplustree/map.h"
 #include "../bplustree/multimap.h"
 #include "vector"
+#include "../error_code/error_code.h"
+
 
 using namespace std;
 
@@ -24,8 +26,9 @@ public:
     string token_str() const;
     //virtual functions
     virtual vector<long> evaluate(Token* field_token, Token* condition_token, vector<MMap<string, long>> &record_indicies, 
-    Map<string, long> &field_indicies);
+    Map<string, long> &field_indicies) throw (Error_Code);
     virtual void print_value();
+    virtual string get_val();
 private:
     string _token;
     int _type;

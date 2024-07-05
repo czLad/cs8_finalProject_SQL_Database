@@ -26,9 +26,12 @@ Logical::Logical(const string& val) : Operator()
 }
 string Logical::get_val()
 {
+    const bool debug = false;
+    if(debug)
+        cout<<"Entered virtual get_val in logical\n";
     return _val;
 }
-vectorlong Logical::evaluate(Token* field_token, Token* condition_token, vector<mmap_sl> &record_indicies, map_sl &field_indicies)
+vectorlong Logical::evaluate(Token* field_token, Token* condition_token, vector<mmap_sl> &record_indicies, map_sl &field_indicies) throw(Error_Code)
 {
     const bool debug = false;
     if(debug)
@@ -45,8 +48,10 @@ vectorlong Logical::evaluate(Token* field_token, Token* condition_token, vector<
     }
     else
     {
+        //if not "and" or "or" then, throw that there's a syntax error at or near the operator relational token is holding
         assert(_val == "or" && "Unrecognized token\n");
     }
+
 }
 vectorlong Logical::intersect(vectorlong vector_1, vectorlong vector_2)
 {

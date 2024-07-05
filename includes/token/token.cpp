@@ -74,13 +74,17 @@ string Token::token_str() const
 }
 //virtual functions
 vector<long> Token::evaluate(Token* field_token, Token* condition_token, vector<MMap<string, long>> &record_indicies, 
-Map<string, long> &field_indicies)
+Map<string, long> &field_indicies) throw (Error_Code)
 {
     return vector<long>();
 }
 void Token::print_value()
 {
     cout<<_token;
+}
+string Token::get_val()
+{
+    return "";
 }
 
 #endif // ZAC_TOKEN_

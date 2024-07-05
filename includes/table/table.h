@@ -48,6 +48,7 @@ public:
     friend Table operator + (const Table& lhs, const Table& rhs)
     {
         //combinig keys
+        cout<<"\nUsed this function +\n";
         return Table();
     }
 private:

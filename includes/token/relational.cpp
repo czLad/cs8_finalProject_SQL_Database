@@ -19,10 +19,6 @@ Relational::Relational()
     set_operator_type(RELATIONAL);
     set_precedence(3);
 }
-// Relational(string val) : Token()
-// {
-//     _val = val;
-// }
 Relational::Relational(const string& val) : Operator()
 {
     _val = val;
@@ -32,12 +28,23 @@ Relational::Relational(const string& val) : Operator()
 }
 string Relational::get_val()
 {
+    const bool debug = false;
+    if(debug)
+        cout<<"Entered virtual get_val in relational\n";
     return _val;
 }
-vectorlong Relational::evaluate(Token* field_token, Token* condition_token, vector<mmap_sl> &record_indicies, map_sl &field_indicies)
+vectorlong Relational::evaluate(Token* field_token, Token* condition_token, vector<mmap_sl> &record_indicies, map_sl &field_indicies) throw(Error_Code)
 {
+    Error_Code error_code;
     string field = static_cast<TokenStr*>(field_token)->get_val();
     string condition = static_cast<TokenStr*>(condition_token)->get_val();
+    if(!field_indicies.contains(field))
+    {
+        error_code._error_token = field;
+        error_code._code = UNKNOWN_COLUMN;
+        error_code._modify_to_postgre = true;
+        throw error_code;
+    }
     const bool debug = false;
     if(debug)
         cout<<"Virtual evaluate() of relational class fired.\n";
@@ -87,6 +94,7 @@ vectorlong Relational::evaluate(Token* field_token, Token* condition_token, vect
                 build_vector.push_back((*it).value_list[i]);
         }
     }
+    //if not less than equal then, throw that there's a syntax error at or near the operator relational token is holding
     if(debug)
         cout<<"build_vector: "<<build_vector<<"\n";
     return build_vector;

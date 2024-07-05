@@ -22,12 +22,11 @@ public:
     Logical();
     Logical(const string &val);
     string get_val();
-    vectorlong evaluate(Token *field_token, Token *condition_token, vector<mmap_sl> &record_indicies, map_sl &field_indicies);
+    vectorlong evaluate(Token *field_token, Token *condition_token, vector<mmap_sl> &record_indicies, map_sl &field_indicies) throw(Error_Code);
     vectorlong intersect(vectorlong vector_1, vectorlong vector_2);
     // Better performing union_vecs
     vectorlong union_vecs(vectorlong &vector_1, vectorlong &vector_2);
     void print_value();
-
 private:
     string _val;
 };

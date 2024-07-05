@@ -151,13 +151,23 @@ ostream &operator<<(ostream &outs,
         outs << setw(20) << "record";
         print_me.print_field_names(outs);
         outs << "\n";
-        open_fileRW(f, print_me._bin_filename.c_str());
-        for (int i = 0; i < print_me._record_count; i++)
+        if(!print_me._table_name.empty())
         {
-            FileRecord r;
-            r.read(f, i);
-            outs << setw(20) << i << r;
+            open_fileRW(f, print_me._bin_filename.c_str());
+            for (int i = 0; i < print_me._record_count; i++)
+            {
+                FileRecord r;
+                r.read(f, i);
+                outs << setw(20) << i << r;
+            }
         }
+        // open_fileRW(f, print_me._bin_filename.c_str());
+        // for (int i = 0; i < print_me._record_count; i++)
+        // {
+        //     FileRecord r;
+        //     r.read(f, i);
+        //     outs << setw(20) << i << r;
+        // }
     }
     else
     {
@@ -297,6 +307,7 @@ Table Table::select(vectorstr string_vec, vectorstr condition) throw(Error_Code)
         }
     }
     ShuntingYard sy(infix);
+    sy.set_sql_shuting_yard(true, &_field_indicies);
     RPN rpn_1(sy.postfix());
     _build_vector = rpn_1(_record_indicies, _field_indicies);
     if (debug)
@@ -332,6 +343,8 @@ Table Table::select(vectorstr condition) throw(Error_Code)
         }
     }
     ShuntingYard sy(infix);
+    // set_sql_shuting_yard lets shuting yard know to do sql specific shunting yard instructions
+    sy.set_sql_shuting_yard(true, &_field_indicies);
     RPN rpn_1(sy.postfix());
     _build_vector = rpn_1(_record_indicies, _field_indicies);
     if (debug)

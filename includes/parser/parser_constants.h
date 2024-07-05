@@ -10,8 +10,8 @@
 #include <cassert>
 using namespace std;
 
-const int MAX_ROWS_PARSER = 26;
-const int MAX_COLUMNS_PARSER = 26;
+const int MAX_ROWS_PARSER = 29;
+const int MAX_COLUMNS_PARSER = 29;
 //MAX ALWAYS HAVE TWO MORE THAN BIGGEST KEY STATE
 enum key_states
 {
@@ -39,7 +39,10 @@ enum key_states
     SHOW, //SHOW TABLES
     TABLES,
     COMMA, //THIS COMMA WILL ALSO BE USED BY VALUENAME
-    BATCH
+    BATCH,
+    DROP, //DROP
+    DROPTABLE,
+    DROPTABLENAME
 };
 
 const int SYM = MAX_COLUMNS_PARSER - 1;

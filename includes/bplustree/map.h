@@ -112,7 +112,7 @@ public:
     }
     void erase(const K& key)
     {
-        map.remove();
+        map.remove(key);
     }
     void clear()
     {

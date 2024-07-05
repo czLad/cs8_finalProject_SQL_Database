@@ -80,6 +80,7 @@ bool is_present(const T data[ ], int n, const T& entry, int &found_index)   //re
 template <class T>
 void attach_item(T data[ ], int& n, const T& entry)    //append entry to the right of data
 {
+    // cout<<"n: "<<n<<"entry: "<<entry<<"\nfrom attach_item\n";
     data[n++] = entry;
     // cout<<"n: "<<n<<"\n";
     // cout<<"data[n]: "<<data[n]<<"\n";
@@ -88,8 +89,7 @@ void attach_item(T data[ ], int& n, const T& entry)    //append entry to the rig
 template <class T>
 void insert_item(T data[ ], int i, int& n, T entry)    //insert entry at index i in data
 {
-    // cout<<"i: "<<i<<"\n";
-    // cout<<"n: "<<n<<"\n";
+    // cout<<"insert item entry: "<<entry<<"\n";
     assert(i < n && "i must be less than n\n");
     shift_right(data, n, i);
     data[i] = entry;

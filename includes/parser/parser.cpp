@@ -25,7 +25,7 @@ Parser::Parser(char cmd_str[300])
     make_table();
     build_keyword_map();
     set_string(cmd_str);
-    //buil
+    //build
 }
 //To Update Parser Commands must make changes to this function v 
 mmap_ss Parser::parse_tree() throw(Error_Code)
@@ -102,7 +102,7 @@ mmap_ss Parser::parse_tree() throw(Error_Code)
     //^ get the input token queues
     if(input_q.empty())
     {
-      error_code._code = 1;
+      error_code._code = EMPTY_COMMAND;
       throw error_code;
     }
     string cause_of_failure = "";
@@ -126,7 +126,7 @@ mmap_ss Parser::parse_tree() throw(Error_Code)
         {
           if(!current_state)
           {
-            error_code._code = 2;
+            error_code._code = INVALID_COMMAND;
             throw error_code;
           }
           new_state = SYM;
@@ -176,6 +176,12 @@ mmap_ss Parser::parse_tree() throw(Error_Code)
         case BATCH:
           _ptree["command"] += *it;
           break;
+        case DROP:
+          _ptree["command"] += *it;
+          break;
+        case DROPTABLENAME:
+          _ptree["table_name"] += *it;
+          break;
         default:
           break;
         }
@@ -195,15 +201,15 @@ mmap_ss Parser::parse_tree() throw(Error_Code)
         {
           if(cause_of_failure == ",")
           {
-            error_code._code = 10;
+            error_code._code = EXPECT_FIELDNAME;
             throw error_code;
           }
           if(cause_of_failure == "where")
           {
-            error_code._code = 5;
+            error_code._code = SELECT_EXPECT_TABLE_NAME;
             throw error_code;
           }
-          error_code._code = 3;
+          error_code._code = EXTRA_KEYWORDS;
           throw error_code;
         }
         else
@@ -216,15 +222,15 @@ mmap_ss Parser::parse_tree() throw(Error_Code)
             {
               if(*it == "from")
               {
-                error_code._code = 4;
+                error_code._code = EXPECTED_COMMA;
                 throw error_code;
               }
               it++;
             }
-            error_code._code = 12;
+            error_code._code = EXPECT_FROM;
             throw error_code;
           }
-          error_code._code = 13;
+          error_code._code = MISSING_KEYWORDS;
           throw error_code;
         }
     }
@@ -296,6 +302,11 @@ void Parser::make_table()
 
     //for batch
     mark_success(_table, BATCH);
+
+    //for drop
+    mark_fail(_table, DROP);
+    mark_fail(_table, DROPTABLE);
+    mark_success(_table, DROPTABLENAME);
     
     //v Marking initial states 
     //mark the expected token previous row's as 
@@ -351,6 +362,11 @@ void Parser::make_table()
     //for batch
     mark_cell(0, _table, BATCH, BATCH);
 
+    //for drop
+    mark_cell(0, _table, DROP, DROP);
+    mark_cell(DROP, _table, TABLE, DROPTABLE);
+    mark_cell(DROPTABLE, _table, SYM, DROPTABLENAME);
+
     if(debug)
     {
         cout << "---After Making Table------\n";
@@ -379,6 +395,7 @@ void Parser::build_keyword_map()
     //last minute addition comma
     _keywords_map[","] = COMMA;
     _keywords_map["batch"] = BATCH;
+    _keywords_map["drop"] = DROP;
 
     if(debug)
         cout<<"_keywords_map:\n"<<_keywords_map;

@@ -21,7 +21,7 @@ public:
     Relational();
     Relational(const string& val);
     string get_val();
-    vectorlong evaluate(Token* field_token, Token* condition_token, vector<mmap_sl> &record_indicies, map_sl &field_indicies);
+    vectorlong evaluate(Token* field_token, Token* condition_token, vector<mmap_sl> &record_indicies, map_sl &field_indicies) throw(Error_Code);
     void print_value();
 private:
     string _val;

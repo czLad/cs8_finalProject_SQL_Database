@@ -29,10 +29,11 @@ SQL::SQL()
     {
         _tables[sql_table_names[i]] = Table(sql_table_names[i]);
         cout<<sql_table_names[i]<<"\n";
+        // cout<<"SQL CTOR _tables:\n"<<_tables<<"\n";
     }
     cout<<"--------------------------\n\n";
     //need to build a table of tablenames on init take care of case where DB might not be managinig any tables
-    // cout<<"_tables:"<<_tables<<"\n";
+    // cout<<"SQL CTOR _tables:\n"<<_tables<<"\n";
 }
     
 Table SQL::command(string cmd_str)
@@ -57,7 +58,7 @@ Table SQL::command(string cmd_str)
             {
                 //error handling should go here
                 //user trying to create an exisiting table
-                error_code._code = 6;
+                error_code._code = CANNOT_CREATE_PRE_EXISTING_TABLE;
                 throw error_code;
                 return _tables[_ptree["table_name"][0]];
 
@@ -79,7 +80,7 @@ Table SQL::command(string cmd_str)
             // Table table(_ptree["table_name"][0]);
             if(!_tables.contains(_ptree["table_name"][0]))
             {
-                error_code._code = 15;
+                error_code._code = INSERT_NON_EXISTENT;
                 throw error_code;
             }
             if(debug)
@@ -99,12 +100,12 @@ Table SQL::command(string cmd_str)
             //where means there is a condition
             if(!_ptree.contains("table_name"))
             {
-                error_code._code = 5;
+                error_code._code = SELECT_EXPECT_TABLE_NAME;
                 throw error_code;
             }
             if(!_tables.contains(_ptree["table_name"][0]))
             {
-                error_code._code = 14;
+                error_code._code = SELECT_NON_EXISTENT;
                 throw error_code;
             }
             if(_ptree["fields"][0] == "*" && _ptree.contains("where"))
@@ -114,7 +115,7 @@ Table SQL::command(string cmd_str)
                 //v show all fields but select with condition
                 if(!_ptree.contains("condition"))
                 {
-                    error_code._code = 11;
+                    error_code._code = EXPECT_CONDITION;
                     throw error_code;
                 }
                 Table result_table = _tables[_ptree["table_name"][0]].select(_ptree["condition"]);
@@ -133,7 +134,7 @@ Table SQL::command(string cmd_str)
                 //want to select fields with condition
                 if(!_ptree.contains("condition"))
                 {
-                    error_code._code = 11;
+                    error_code._code = EXPECT_CONDITION;
                     throw error_code;
                 }
                 Table result_table = _tables[_ptree["table_name"][0]].select(_ptree["fields"], _ptree["condition"]);
@@ -150,11 +151,52 @@ Table SQL::command(string cmd_str)
         }
         else if(_ptree["command"][0] == "show tables")
         {
+            // cout<<"SQL CTOR _tables:\n"<<_tables<<"\n";
             return get_tablenames_table();
         }
         else if(_ptree["command"][0] == "batch")
         {
             batch();
+            _error_state = true;
+            return Table();
+        }
+        else if(_ptree["command"][0] == "drop")
+        {
+            //throw if trying to drop a non exisiting table
+            //throw if trying to drop without giving the name of a table
+            //delete from the map
+            //actually delete the txt file and bin associated with the table_name 
+            if(!_ptree.contains("table_name"))
+            {
+                error_code._code = DROP_EXPECT_TABLENAME;
+                throw error_code;
+            }
+            if(!_tables.contains(_ptree["table_name"][0]))
+            {
+                error_code._code = DROP_NON_EXISTENT;
+                throw error_code;
+            }
+            string removed_table_name = _ptree["table_name"][0];
+            // cout<<"Before removing "<<removed_table_name<<" from _tables map\n";
+            // cout<<_tables;
+            if(remove((removed_table_name + "_fields.txt").c_str()) != 0)
+                cout<<"Could not remove the file: "<<_ptree["table_name"][0] + "_fields.txt\n";
+            if(remove((removed_table_name + "_fields.bin").c_str()) != 0)
+                cout<<"Could not remove the file: "<<_ptree["table_name"][0] + "_fields.bin\n";
+            _tables.erase(removed_table_name);
+            // cout<<"After removing "<<removed_table_name<<" from _tables map\n";
+            // cout<<_tables;
+            vectorstr before_remove_sql_table_names = read_from_file_txt(_sql_table_names_txt);
+            vectorstr sql_table_names;
+            for(int i = 0; i < before_remove_sql_table_names.size(); i++)
+            {
+                if(_tables.contains(before_remove_sql_table_names[i]))
+                {
+                    sql_table_names.push_back(before_remove_sql_table_names[i]);
+                    _tables[before_remove_sql_table_names[i]] = Table(before_remove_sql_table_names[i]);
+                }
+            }
+            write_to_file_txt(_sql_table_names_txt, sql_table_names);
             _error_state = true;
             return Table();
         }
@@ -165,6 +207,9 @@ Table SQL::command(string cmd_str)
     }
     catch(Error_Code error)
     {
+        //v this function will add the cmd_str to the error_code obj so that it can use it to
+        // display errors according to postgre sql standards
+        modify_error_string_postgre(error, cmd_str);
         cout<<error.get_error_string()<<"\n";
         _error_state = true;
         return Table();
@@ -190,9 +235,11 @@ void SQL::print_tables_names()
 void SQL::batch()
 {
     // vectorstr command_vec = read_from_file_txt("batch.txt");
+    const bool debug = false;
     ifstream fin;
     fin.open("batch.txt");
-    cout<<"Loading from batch file\n";
+    if(debug)
+        cout<<"Loading from batch file\n";
     string command_str;
     int i = 1;
     while(getline(fin, command_str))
@@ -226,6 +273,30 @@ Table SQL::get_tablenames_table()
         sql_tables.insert_into({sql_table_names[i]});
     }
     return sql_tables;
+}
+void SQL::modify_error_string_postgre(Error_Code& error, string& cmd_str)
+{
+    const bool debug = false;
+    if(error._modify_to_postgre)
+    {
+        error._error_input = cmd_str;
+        char input_buffer[300];
+        strcpy(input_buffer, cmd_str.c_str());
+        STokenizer stk(input_buffer);
+        SToken t;
+        stk>>t;
+        while(stk.more())
+        {
+            if(t.token_str() == error._error_token)
+                break;
+
+            error._character_count += t.token_str().size();
+            t = SToken();
+            stk>>t;
+        }
+    }
+    if(debug)
+        cout<<"error._character_count: "<<error._character_count<<"\n";
 }
 
 

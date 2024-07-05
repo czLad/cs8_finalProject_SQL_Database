@@ -28,6 +28,9 @@ TokenStr::TokenStr(string val) : Token()
 // }
 string TokenStr::get_val()
 {
+    const bool debug = false;
+    if(debug)
+        cout<<"Entered virtual get_val() in TokenStr()\n";
     return _val;
 }
 void TokenStr::print_value()
